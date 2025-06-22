@@ -14,13 +14,13 @@ const Contact = () => {
   const [userMessage, setUserMessage] = useState("");
   const [submissionStatus, setSubmissionStatus] = useState("");
 
-  const questions = [
-    "\u00A0\u00A0 How are things at your end today? 😊",
-    "\u00A0\u00A0 Looking to collaborate with a passionate developer? 💼",
-    "\u00A0\u00A0 Exploring new talent for your team? Let's connect! 🤝",
-    "\u00A0\u00A0 Interested in building meaningful digital products together? 🚀",
-    "\u00A0\u00A0 Need someone who's eager to learn and deliver? I’m all ears! 👨‍💻"
-  ];
+ const questions = [
+  "\u00A0  How’s your day going? 😊",
+  "\u00A0  Looking for a dev to team up with? 💼",
+  "\u00A0  Hiring tech talent? Let’s chat! 🤝",
+  "\u00A0  Got an idea? I can help build it 🚀",
+  "\u00A0  Eager to grow with exciting projects 👨‍💻"
+];
 
   useEffect(() => {
     const updateTime = () => {
