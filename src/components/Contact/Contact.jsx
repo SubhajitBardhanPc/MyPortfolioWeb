@@ -144,7 +144,7 @@ const Contact = () => {
 
       {showForm && (
         <div className="form-modal">
-          <div className="form-box">
+          <div className="form-box" style={{ maxHeight: '90vh', overflowY: 'auto' }}>
             <button className="close-btn" onClick={() => setShowForm(false)}>✖</button>
             <h3>📩 Send Me a Message</h3>
             <form onSubmit={handleSubmit}>
