@@ -5,9 +5,9 @@ import { app } from "../../firebase";
 
 const Contact = () => {
   const [contact, setContact] = useState(null);
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState("    ");
   const [weather, setWeather] = useState("Fetching weather...");
-  const [typingText, setTypingText] = useState(" ");
+  const [typingText, setTypingText] = useState("     ");
 
   const questions = [
   "How are things at your end today? 😊",
