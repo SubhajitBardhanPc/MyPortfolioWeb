@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "./Contact.css";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, push } from "firebase/database";
 import { app } from "../../firebase";
 
 const Contact = () => {
   const [contact, setContact] = useState(null);
-  const [time, setTime] = useState("    ");
+  const [time, setTime] = useState("");
   const [weather, setWeather] = useState("Fetching weather...");
-  const [typingText, setTypingText] = useState("     ");
+  const [typingText, setTypingText] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
+  const [userMessage, setUserMessage] = useState("");
+  const [submissionStatus, setSubmissionStatus] = useState("");
 
   const questions = [
-  "How are things at your end today? 😊",
-  "Looking to collaborate with a passionate developer? 💼",
-  "Exploring new talent for your team? Let's connect! 🤝",
-  "Interested in building meaningful digital products together? 🚀",
-  "Need someone who's eager to learn and deliver? I’m all ears! 👨‍💻"
-];
+    "\u00A0\u00A0 How are things at your end today? 😊",
+    "\u00A0\u00A0 Looking to collaborate with a passionate developer? 💼",
+    "\u00A0\u00A0 Exploring new talent for your team? Let's connect! 🤝",
+    "\u00A0\u00A0 Interested in building meaningful digital products together? 🚀",
+    "\u00A0\u00A0 Need someone who's eager to learn and deliver? I’m all ears! 👨‍💻"
+  ];
 
-
-  // Clock (IST)
+  // Clock
   useEffect(() => {
     const updateTime = () => {
       const now = new Date().toLocaleTimeString("en-IN", {
@@ -26,7 +29,7 @@ const Contact = () => {
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
-        hour12: true
+        hour12: true,
       });
       setTime(now);
     };
@@ -35,18 +38,17 @@ const Contact = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Firebase Contact Fetch
+  // Fetch contact info
   useEffect(() => {
     const db = getDatabase(app);
     const contactRef = ref(db, "contact");
-    const unsubscribe = onValue(contactRef, (snapshot) => {
+    return onValue(contactRef, (snapshot) => {
       const data = snapshot.val();
       if (data) setContact(data);
     });
-    return () => unsubscribe();
   }, []);
 
-  // Simulate weather
+  // Weather
   useEffect(() => {
     setTimeout(() => {
       setWeather("☀️ Sunny, 32°C in Kolkata");
@@ -55,27 +57,24 @@ const Contact = () => {
 
   // Typing animation
   useEffect(() => {
-    let current = 0;
-    let charIndex = 0;
-    let typingInterval;
-    let eraseTimeout;
+    let current = 0, charIndex = 0, typingInterval, eraseTimeout;
 
     const typeNextChar = () => {
       setTypingText((prev) => prev + questions[current].charAt(charIndex));
       charIndex++;
-
       if (charIndex === questions[current].length) {
         clearInterval(typingInterval);
         eraseTimeout = setTimeout(() => {
-          setTypingText("");
-          charIndex = 0;
+          setTypingText("\u00A0\u00A0");
+          charIndex = 2;
           current = (current + 1) % questions.length;
           typingInterval = setInterval(typeNextChar, 70);
         }, 2500);
       }
     };
 
-    setTypingText("");
+    setTypingText("\u00A0\u00A0");
+    charIndex = 2;
     typingInterval = setInterval(typeNextChar, 70);
 
     return () => {
@@ -83,6 +82,32 @@ const Contact = () => {
       clearTimeout(eraseTimeout);
     };
   }, []);
+
+  // Submit handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!userEmail || !userMessage) {
+      setSubmissionStatus("❌ Please fill in all fields.");
+      return;
+    }
+
+    const db = getDatabase(app);
+    const messageRef = ref(db, "messages");
+    push(messageRef, {
+      email: userEmail,
+      message: userMessage,
+      timestamp: new Date().toISOString(),
+    })
+      .then(() => {
+        setSubmissionStatus("✅ Message sent successfully!");
+        setUserEmail("");
+        setUserMessage("");
+      })
+      .catch((err) => {
+        console.error(err);
+        setSubmissionStatus("❌ Failed to send message.");
+      });
+  };
 
   if (!contact) return <p className="loading">Loading Contact...</p>;
 
@@ -93,8 +118,7 @@ const Contact = () => {
         <h2 className="hello-text">Hey there, welcome to my digital space!</h2>
         <p className="time-display">Current Time (IST): 🕒 {time}</p>
         <p className="time-display">Weather Now: {weather}</p>
-        <p className="typing-effect">💬  {typingText}</p>
-
+        <p className="typing-effect">💬 {typingText}</p>
       </div>
 
       <div className="blob blob1"></div>
@@ -105,21 +129,43 @@ const Contact = () => {
 
       <div className="contact-card">
         <p><strong>Email:</strong> <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
-        <p><strong>LinkedIn:</strong> <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">View Profile 🔗</a></p>
-        <p><strong>GitHub:</strong> <a href={contact.github} target="_blank" rel="noopener noreferrer">Check Github 🐱‍💻</a></p>
-
+        <p><strong>LinkedIn:</strong> <a href={contact.linkedin} target="_blank">View Profile 🔗</a></p>
+        <p><strong>GitHub:</strong> <a href={contact.github} target="_blank">Check Github 🐱‍💻</a></p>
         <hr className="divider" />
-
-        <p><strong>Available for :</strong> Full-time Positions 💼</p>
-        <p><strong>Timezone :</strong> IST (GMT +5:30) ⏰</p>
-        {/* <p className="quote">“Let’s turn coffee ☕ into code 💻”</p> */}
+        <p><strong>Available for:</strong> Full-time Positions 💼</p>
+        <p><strong>Timezone:</strong> IST (GMT +5:30) ⏰</p>
         <p className="quote">“Building the future — one line of code at a time 🚀💻”</p>
 
-
-        <button className="collab-btn" onClick={() => window.scrollTo(0, 0)}>
+        <button className="collab-btn" onClick={() => setShowForm(true)}>
           👨‍💻 Let’s Collaborate
         </button>
       </div>
+
+      {showForm && (
+        <div className="form-modal">
+          <div className="form-box">
+            <button className="close-btn" onClick={() => setShowForm(false)}>✖</button>
+            <h3>📩 Send Me a Message</h3>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                placeholder="Your Email"
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+                required
+              />
+              <textarea
+                placeholder="Your Message"
+                value={userMessage}
+                onChange={(e) => setUserMessage(e.target.value)}
+                required
+              />
+              <button type="submit">Send</button>
+              {submissionStatus && <p className="form-status">{submissionStatus}</p>}
+            </form>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
