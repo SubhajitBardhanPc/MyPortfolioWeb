@@ -9,6 +9,7 @@ const Contact = () => {
   const [weather, setWeather] = useState("Fetching weather...");
   const [typingText, setTypingText] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userMessage, setUserMessage] = useState("");
   const [submissionStatus, setSubmissionStatus] = useState("");
@@ -21,7 +22,6 @@ const Contact = () => {
     "\u00A0\u00A0 Need someone who's eager to learn and deliver? I’m all ears! 👨‍💻"
   ];
 
-  // Clock
   useEffect(() => {
     const updateTime = () => {
       const now = new Date().toLocaleTimeString("en-IN", {
@@ -38,7 +38,6 @@ const Contact = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch contact info
   useEffect(() => {
     const db = getDatabase(app);
     const contactRef = ref(db, "contact");
@@ -48,14 +47,12 @@ const Contact = () => {
     });
   }, []);
 
-  // Weather
   useEffect(() => {
     setTimeout(() => {
       setWeather("☀️ Sunny, 32°C in Kolkata");
     }, 1500);
   }, []);
 
-  // Typing animation
   useEffect(() => {
     let current = 0, charIndex = 0, typingInterval, eraseTimeout;
 
@@ -83,10 +80,9 @@ const Contact = () => {
     };
   }, []);
 
-  // Submit handler
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!userEmail || !userMessage) {
+    if (!userName || !userEmail || !userMessage) {
       setSubmissionStatus("❌ Please fill in all fields.");
       return;
     }
@@ -94,14 +90,20 @@ const Contact = () => {
     const db = getDatabase(app);
     const messageRef = ref(db, "messages");
     push(messageRef, {
+      name: userName,
       email: userEmail,
       message: userMessage,
       timestamp: new Date().toISOString(),
     })
       .then(() => {
         setSubmissionStatus("✅ Message sent successfully!");
+        setUserName("");
         setUserEmail("");
         setUserMessage("");
+        setTimeout(() => {
+          setShowForm(false);
+          setSubmissionStatus("");
+        }, 700);
       })
       .catch((err) => {
         console.error(err);
@@ -129,13 +131,12 @@ const Contact = () => {
 
       <div className="contact-card">
         <p><strong>Email:</strong> <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
-        <p><strong>LinkedIn:</strong> <a href={contact.linkedin} target="_blank">View Profile 🔗</a></p>
-        <p><strong>GitHub:</strong> <a href={contact.github} target="_blank">Check Github 🐱‍💻</a></p>
+        <p><strong>LinkedIn:</strong> <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">View Profile 🔗</a></p>
+        <p><strong>GitHub:</strong> <a href={contact.github} target="_blank" rel="noopener noreferrer">Check Github 🐱‍💻</a></p>
         <hr className="divider" />
         <p><strong>Available for:</strong> Full-time Positions 💼</p>
         <p><strong>Timezone:</strong> IST (GMT +5:30) ⏰</p>
         <p className="quote">“Building the future — one line of code at a time 🚀💻”</p>
-
         <button className="collab-btn" onClick={() => setShowForm(true)}>
           👨‍💻 Let’s Collaborate
         </button>
@@ -147,6 +148,13 @@ const Contact = () => {
             <button className="close-btn" onClick={() => setShowForm(false)}>✖</button>
             <h3>📩 Send Me a Message</h3>
             <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Your Name"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                required
+              />
               <input
                 type="email"
                 placeholder="Your Email"
