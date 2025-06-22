@@ -1,0 +1,229 @@
+/* === Base Section === */
+.contact-section {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  padding: 100px 20px 60px;
+  background: linear-gradient(to bottom right, #101820, #1f2e40);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 0;
+  max-height: 100vh;
+}
+
+/* === Greeting Section === */
+.animated-greeting {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 30px;
+  animation: slideInTop 0.8s ease forwards;
+  padding: 0 16px;
+  max-width: 90%;
+}
+
+.wave-emoji {
+  font-size: 2.8rem;
+  animation: waveHand 1.5s ease-in-out infinite;
+}
+
+.hello-text {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 10px 0;
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+}
+
+/* Time & Weather */
+.time-display {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: #e0e0e0;
+  opacity: 0.85;
+  margin: 4px 0;
+}
+
+/* === Typing Text Fix (💯 No Cut-Off) === */
+.typing-effect {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #f0f0f0;
+  padding: 4px 10px;
+  border-right: 2px solid #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 1.8rem;
+  margin: 12px auto 0;
+  display: inline-block;
+  box-sizing: content-box;
+  min-height: 1.4em; /* ensures first line visible */
+  line-height: 1.4;
+  animation: blinkCursor 1s step-end infinite;
+}
+
+/* === Cursor Animation === */
+@keyframes blinkCursor {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #fff; }
+}
+
+/* === Title & Subtitle === */
+.let-connect {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 10px;
+  z-index: 2;
+}
+
+.connect-subtitle {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 30px;
+  text-align: center;
+  font-style: italic;
+  padding: 0 12px;
+}
+
+/* === Contact Card === */
+.contact-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  align-items: center;
+  text-align: center;
+  padding: 30px 26px; /* increased padding for breathing room */
+  color: #fff;
+  font-size: 1.1rem; /* slightly larger text */
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  animation: fadeSlideIn 0.8s ease forwards;
+}
+
+
+.contact-card p {
+  margin: 14px 0;
+  line-height: 1.7;
+  font-size: 1.1rem;
+}
+
+
+.contact-card a {
+  color: #67e8f9;
+  text-decoration: none;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.divider {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.quote {
+  font-style: italic;
+  color: #f3f3f3;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* === Button === */
+.collab-btn {
+  margin-top: 24px;
+  padding: 12px 28px;
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 114, 255, 0.3);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.collab-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 114, 255, 0.5);
+}
+
+/* === Blobs === */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent);
+  filter: blur(80px);
+  animation: floatBlob 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+.blob1 {
+  width: 250px;
+  height: 250px;
+  top: 10%;
+  left: -80px;
+}
+
+.blob2 {
+  width: 250px;
+  height: 250px;
+  bottom: 5%;
+  right: -90px;
+}
+
+/* === Animations === */
+@keyframes waveHand {
+  0% { transform: rotate(0); }
+  15% { transform: rotate(14deg); }
+  30% { transform: rotate(-8deg); }
+  45% { transform: rotate(14deg); }
+  60% { transform: rotate(-4deg); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(0); }
+}
+
+@keyframes slideInTop {
+  0% { opacity: 0; transform: translateY(-30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatBlob {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+}
+
+@keyframes fadeSlideIn {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* === Loader === */
+.loading {
+  color: #ffffff;
+  font-size: 1.2rem;
+  padding-top: 50px;
+  text-align: center;
+}
+
+/* === Mobile Responsive === */
+@media (max-width: 768px) {
+  .hello-text { font-size: 1.4rem; }
+  .typing-effect { font-size: 0.95rem; padding: 4px 8px; }
+  .contact-card { padding: 22px 16px; font-size: 0.95rem; }
+  .collab-btn { width: 100%; font-size: 0.95rem; padding: 10px 20px; }
+  .let-connect { font-size: 1.8rem; }
+  .connect-subtitle { font-size: 0.95rem; }
+  .blob1, .blob2 { width: 180px; height: 180px; filter: blur(60px); }
+}
