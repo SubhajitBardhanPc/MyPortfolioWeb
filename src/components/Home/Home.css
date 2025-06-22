@@ -1,0 +1,107 @@
+/* src/components/Home/Home.css */
+
+.home-container {
+  min-height: 100vh;
+  width: 100vw;
+  padding: 100px 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(to bottom right, #101820, #1f2e40);
+  color: #f1f5f9;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+  overflow-x: hidden;
+}
+
+.intro-content {
+  max-width: 700px;
+  padding: 0 1rem;
+  animation: fadeUp 0.8s ease-in-out;
+}
+
+.home-heading {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #00d4ff, #90f7ec);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+.highlight {
+  background: linear-gradient(90deg, #50fa7b, #8be9fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.home-subtext {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #cbd5e1;
+}
+
+.home-button {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+  background: linear-gradient(90deg, #a1ffce, #faffd1);
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.home-button:hover {
+  background: linear-gradient(90deg, #94b875, #5d67bd); /* 💙 soft blue gradient */
+  color: #ffffff;
+  transform: scale(1.05);
+  box-shadow:
+    0 4px 12px rgba(96, 165, 250, 0.3),
+    0 6px 18px rgba(129, 140, 248, 0.4);
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-heading {
+    font-size: 2rem;
+  }
+
+  .home-subtext {
+    font-size: 1rem;
+  }
+
+  .home-button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.5rem;
+  }
+}
