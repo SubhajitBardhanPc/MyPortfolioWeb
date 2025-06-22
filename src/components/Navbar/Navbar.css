@@ -48,10 +48,9 @@
   transform: scale(1.05);
 }
 
-/* === PROFILE IMAGE with Tiranga ring === */
 .logo-image {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
   padding: 0.9px;
@@ -75,7 +74,7 @@
 }
 
 @keyframes tirangaPulse {
-  0% {
+  0%, 100% {
     box-shadow:
       0 0 8px #ff9933,
       0 0 16px #ffffff,
@@ -87,15 +86,8 @@
       0 0 24px #ffffff,
       0 0 32px #138808;
   }
-  100% {
-    box-shadow:
-      0 0 8px #ff9933,
-      0 0 16px #ffffff,
-      0 0 24px #138808;
-  }
 }
 
-/* === LOGO TEXT === */
 .logo-text {
   font-size: 1.7rem;
   font-weight: 700;
@@ -125,7 +117,7 @@
   letter-spacing: 0.8px;
 }
 
-/* === Hover underline effect === */
+/* Hover underline effect */
 .nav-links a::after {
   content: "";
   position: absolute;
@@ -144,4 +136,44 @@
 }
 .nav-links a:hover::after {
   width: 100%;
+}
+
+/* === MENU TOGGLE (MOBILE) === */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.menu-toggle div {
+  width: 25px;
+  height: 3px;
+  background-color: #f8faff;
+  border-radius: 4px;
+  transition: 0.3s ease;
+}
+
+/* === RESPONSIVE === */
+@media screen and (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 75px;
+    right: 0;
+    width: 100%;
+    background: #12272e;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    display: none;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
 }

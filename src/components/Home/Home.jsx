@@ -8,7 +8,7 @@ const Home = () => {
     <section id="home" className="home-container">
       <div className="intro-content">
         <h1 className="home-heading">
-          Hey, I'm <span className="highlight">Subhajit</span> 👋
+          Hey, I'm <span className="highlight">Subhajit</span> 
         </h1>
         <p className="home-subtext">
           A curious dev building smooth, modern web experiences.

@@ -46,7 +46,7 @@ const Projects = () => {
     <section id="projects" className="projects-section">
       {/* 💡 Knowledge Section */}
       <div className="knowledge-section">
-        <h2 className="knowledge-title">💡 My Tech Stack</h2>
+        <h2 className="knowledge-title">My Tech Stack</h2>
         <div className="knowledge-tags">
           {knowledge.map((item, index) => (
             <span className="tag" key={index}>
